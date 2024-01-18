@@ -66,6 +66,13 @@ class InGame():
 
 
     def setup_game(self):
+        
+        if py.joystick.get_count() > 0:
+            self.joystick = py.joystick.Joystick(0)
+            self.joystick.init()
+        else:
+            print("Aucune manette détectée")
+                
         self.clock = py.time.Clock()
         self.run = True
 
@@ -143,23 +150,38 @@ class InGame():
             if event.type == py.QUIT:
                 self.run = False
 
-        # GESTION ENTREE FLECHE ET POSITION PERSO
+        # GESTION DES ENTRÉES DU CLAVIER ET DE LA MANETTE POUR LA POSITION DU PERSONNAGE
         keys = py.key.get_pressed()
         current_time = py.time.get_ticks()
-        if keys[py.K_z] and self.player_pos > 1 and current_time - self.last_move_time > self.pause_duration:
+
+        # Mouvement vers le haut
+        move_up = keys[py.K_z]
+        if self.joystick:
+            axis_y = self.joystick.get_axis(1)  # Assurez-vous de choisir le bon numéro d'axe
+            move_up = move_up or axis_y < -0.5
+
+        # Mouvement vers le bas
+        move_down = keys[py.K_s]
+        if self.joystick:
+            axis_y = self.joystick.get_axis(1)  # Assurez-vous de choisir le bon numéro d'axe
+            move_down = move_down or axis_y > 0.5
+
+        # Appliquer le mouvement
+        if move_up and self.player_pos > 1 and current_time - self.last_move_time > self.pause_duration:
             self.player_pos -= 1
             self.last_move_time = current_time
-
-        if keys[py.K_s] and self.player_pos < 3 and current_time - self.last_move_time > self.pause_duration:
+        elif move_down and self.player_pos < 3 and current_time - self.last_move_time > self.pause_duration:
             self.player_pos += 1
             self.last_move_time = current_time
 
+        # Positionnement du personnage selon player_pos
         if self.player_pos == 1:
             self.perso.rect.topleft = (100, 250)
-        if self.player_pos == 2:
+        elif self.player_pos == 2:
             self.perso.rect.topleft = (100, 400)
-        if self.player_pos == 3:
+        elif self.player_pos == 3:
             self.perso.rect.topleft = (100, 520)
+
 
         # UPDATE ALL SPRITES
         self.perso.update()
