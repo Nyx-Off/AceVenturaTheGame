@@ -195,6 +195,8 @@ class InGame():
 
         if self.perso.over:
             from end_screen import EndScreen
+            py.mixer.music.load("music\Epic at the Jungle.mp3")
+            py.mixer.music.play(-1)            
             print("ici")
             self.quitter_jeu()
             self.enregistrer_high_score(self.perso.points)

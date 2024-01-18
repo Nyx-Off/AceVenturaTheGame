@@ -65,14 +65,14 @@ class MainMenu:
             Button("Paramètres", self.screen.get_height() / 2.5 + MESSAGE_SPACING, self.font_path, self.parametres),
             Button("Quitter", self.screen.get_height() / 2.4 + MESSAGE_SPACING * 2, self.font_path, self.quitter),
             Button("Retour", self.screen.get_height() / 1.9 + MESSAGE_SPACING, self.font_path, self.retour, x_offset=800),
-            Button("Son", self.screen.get_height() / 2 - MESSAGE_SPACING, self.font_path, self.Son, x_offset=800),
+            Button("Son", self.screen.get_height() / 2 - MESSAGE_SPACING, self.font_path, self.nothing, x_offset=800),
             Button("Crédit", self.screen.get_height() / 1.1 - MESSAGE_SPACING, self.font_path, self.credit, x_offset=-350, text_color=(255, 255, 255)),
             Button("Retour", self.screen.get_height() / 1.8 + MESSAGE_SPACING, self.font_path, self.retour, x_offset=-1500),
-            Button("Marine ", self.screen.get_height() / 2.8 + MESSAGE_SPACING, self.font_path, self.marine, x_offset=-1600, text_color=(240, 212, 29)),
-            Button("Adrien ", self.screen.get_height() / 2.3 + MESSAGE_SPACING, self.font_path, self.retour, x_offset=-1600, text_color=(14, 91, 135)),
-            Button("Samy ", self.screen.get_height() / 3.1 + MESSAGE_SPACING, self.font_path, self.retour, x_offset=-1370, text_color=(224, 20, 20)),
-            Button("Bilel ", self.screen.get_height() / 2.5 + MESSAGE_SPACING, self.font_path, self.retour, x_offset=-1370, text_color=(14, 135, 66)),
-            Button("Thommy ", self.screen.get_height() / 2.1+ MESSAGE_SPACING, self.font_path, self.retour, x_offset=-1370, text_color=(158, 50, 168)),
+            Button("Marine ", self.screen.get_height() / 2.8 + MESSAGE_SPACING, self.font_path, self.nothing, x_offset=-1600, text_color=(240, 212, 29)),
+            Button("Adrien ", self.screen.get_height() / 2.3 + MESSAGE_SPACING, self.font_path, self.nothing, x_offset=-1600, text_color=(14, 91, 135)),
+            Button("Samy ", self.screen.get_height() / 3.1 + MESSAGE_SPACING, self.font_path, self.nothing, x_offset=-1370, text_color=(224, 20, 20)),
+            Button("Bilel ", self.screen.get_height() / 2.5 + MESSAGE_SPACING, self.font_path, self.nothing, x_offset=-1370, text_color=(14, 135, 66)),
+            Button("Thommy ", self.screen.get_height() / 2.1+ MESSAGE_SPACING, self.font_path, self.nothing, x_offset=-1370, text_color=(158, 50, 168)),
         ]
 
     def draw(self):
@@ -133,6 +133,8 @@ class MainMenu:
 
     def jouer(self):
         print("Jouer")
+        pygame.mixer.music.load("music\Jungle.mp3")
+        pygame.mixer.music.play(-1)
         game_instance = InGame()
         game_instance.run_game()
         self.is_running = False  # Ajoutez cette ligne pour arrêter la boucle
@@ -158,8 +160,8 @@ class MainMenu:
         self.shift_buttons_right2()
         print("Crédit")
         
-    def marine(self):
-        print("Marine")
+    def nothing(self):
+        print("not used yet")
         #from end_screen import EndScreen
         # À l'endroit où vous gérez la fin du jeu :
         #end_screen = EndScreen((1280, 720))
