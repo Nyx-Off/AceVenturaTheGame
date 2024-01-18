@@ -3,7 +3,6 @@ import pygame as py
 
 from GameObject import GameObject
 
-
 class Perso(GameObject):
     def __init__(self, image_paths, width, height):
         super().__init__(image_paths[0], width, height, (0, 0))

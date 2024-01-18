@@ -8,8 +8,13 @@ from Perso import Perso
 from Rock import Rock
 from Coin import Coin
 
+SPEED_INCREASE_EVENT = py.USEREVENT + 1
+SPEED_INCREASE_INTERVAL = 10000  # 10 secondes en millisecondes
+
 class InGame():
     def __init__(self):
+        self.speed = 18 
+        py.time.set_timer(SPEED_INCREASE_EVENT, SPEED_INCREASE_INTERVAL)
         self.setup_game()  # Appel de setup_game dans le constructeur
         
         self.clock = py.time.Clock()
@@ -131,6 +136,7 @@ class InGame():
 
     def update(self):
         self.clock.tick(50)
+        
 
         # APPENDING THE IMAGE TO THE BACK
         # OF THE SAME IMAGE
@@ -149,6 +155,9 @@ class InGame():
         for event in py.event.get():
             if event.type == py.QUIT:
                 self.run = False
+            elif event.type == SPEED_INCREASE_EVENT:
+                print(self.speed)
+                self.speed += 1  # Augmenter la vitesse
 
         # GESTION DES ENTRÉES DU CLAVIER ET DE LA MANETTE POUR LA POSITION DU PERSONNAGE
         keys = py.key.get_pressed()
@@ -185,7 +194,7 @@ class InGame():
 
         # UPDATE ALL SPRITES
         self.perso.update()
-        self.ennemy_group.update()
+        self.ennemy_group.update(self.speed)
         self.screen.blit(self.perso.image, self.perso.rect)
 
         # GÉNÉRATION DE NOUVEAUX OBJETS À INTERVALLES RÉGULIERS

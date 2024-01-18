@@ -1,5 +1,7 @@
 import random
 from GameObject import GameObject
+import threading
+
 
 
 class Coin(GameObject):
@@ -23,9 +25,8 @@ class Coin(GameObject):
         if random_pos == 3:
             self.rect.y = 550
 
-    def update(self):
+    def update(self,speed):
         #Augmenter la vitesse
-        speed = 18
         self.rect.x -= speed
         if self.rect.right < 0:
             self.reset()
