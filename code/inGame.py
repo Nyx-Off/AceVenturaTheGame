@@ -59,6 +59,12 @@ class InGame():
         # HERE 1 IS THE CONSTANT FOR REMOVING BUFFERING
         self.tiles = math.ceil(self.FrameWidth / self.bg.get_width()) + 1000
 
+        self.sound_life_lost = py.mixer.Sound("music\hit.mp3")
+        self.sound_game_over = py.mixer.Sound("music\Game_Over.mp3")
+        self.sound_get_point = py.mixer.Sound("music\Coin01.mp3")
+
+
+
     def setup_game(self):
         self.clock = py.time.Clock()
         self.run = True
@@ -182,9 +188,11 @@ class InGame():
             if self.perso.rect.colliderect(caillou.rect):
                 print("Collision!")
                 self.perso.lives -= 1
+                self.sound_life_lost.play()
 
                 if self.perso.lives <= 0:
                     print("Game Over! You ran out of lives.")
+                    self.sound_game_over.play()  # Jouer l'effet sonore
                     self.perso.game_over = True
                     self.ennemy_group.empty()
                 else:
@@ -209,6 +217,7 @@ class InGame():
         for coin in self.coin_group:
             if self.perso.rect.colliderect(coin.rect):
                 print("+1 point")
+                self.sound_get_point.play()
                 self.perso.points += 1
                 coin.rect.x = -1000
 
