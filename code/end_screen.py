@@ -9,7 +9,7 @@ class EndScreen:
         self.score_value = score
         self.is_running = True
         pygame.init()
-        self.screen = pygame.display.set_mode(screen_size)
+        self.screen = pygame.display.set_mode(screen_size,pygame.FULLSCREEN)
         self.font_path = 'font/Crang.ttf'
         self.background_image_path = 'asset/backGroundMainMenue.png'
         self.background_menu_image_path = 'asset/backGroudMenu.png'

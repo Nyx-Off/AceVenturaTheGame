@@ -34,7 +34,7 @@ class InGame():
 
         # PYGAME FRAME WINDOW
         py.display.set_caption("AceVentura")
-        self.screen = py.display.set_mode((self.FrameWidth, self.FrameHeight))
+        self.screen = py.display.set_mode((self.FrameWidth, self.FrameHeight),py.FULLSCREEN )
 
         # IMAGE
         self.bg = py.image.load("code/assets/Fond_Final.png").convert()
@@ -159,21 +159,15 @@ class InGame():
                 print(self.speed)
                 self.speed += 1  # Augmenter la vitesse
 
-        # GESTION DES ENTRÉES DU CLAVIER ET DE LA MANETTE POUR LA POSITION DU PERSONNAGE
+        # GESTION DES ENTRÉES DU CLAVIER POUR LA POSITION DU PERSONNAGE
         keys = py.key.get_pressed()
         current_time = py.time.get_ticks()
 
         # Mouvement vers le haut
-        move_up = keys[py.K_z]
-        if self.joystick:
-            axis_y = self.joystick.get_axis(1)  # Assurez-vous de choisir le bon numéro d'axe
-            move_up = move_up or axis_y < -0.5
+        move_up = keys[py.K_UP]
 
         # Mouvement vers le bas
-        move_down = keys[py.K_s]
-        if self.joystick:
-            axis_y = self.joystick.get_axis(1)  # Assurez-vous de choisir le bon numéro d'axe
-            move_down = move_down or axis_y > 0.5
+        move_down = keys[py.K_DOWN]
 
         # Appliquer le mouvement
         if move_up and self.player_pos > 1 and current_time - self.last_move_time > self.pause_duration:
