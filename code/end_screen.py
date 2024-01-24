@@ -8,7 +8,7 @@ class EndScreen:
         # Initialize the EndScreen object
         self.score_value = score
         self.is_running = True
-        self.screen = pygame.display.set_mode(screen_size)#,pygame.FULLSCREEN
+        self.screen = pygame.display.set_mode(screen_size,pygame.FULLSCREEN)
         self.font_path = 'font/Crang.ttf'
         self.background_image_path = 'asset/Background/backGroundMainMenue.png'
         self.background_menu_image_path = 'asset/Background/backGroudMenu.png'

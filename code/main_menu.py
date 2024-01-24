@@ -11,7 +11,7 @@ class MainMenu:
         self.volume_level = 5  # Niveau de volume initial
         self.is_running = True 
         self.size = size
-        self.screen = pygame.display.set_mode(self.size) #pygame.FULLSCREEN
+        self.screen = pygame.display.set_mode(self.size,pygame.FULLSCREEN)
         self.font_path = 'font/Crang.ttf'
         self.background_menu_image_path = 'asset/Background/backGroudMenu.png'
         self.background_image_path = 'asset/Background/backGroundMainMenue.png'

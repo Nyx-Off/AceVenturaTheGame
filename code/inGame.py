@@ -42,7 +42,7 @@ class InGame():
         self.spawn_interval = 5
         self.text_color = (22, 69, 62)
         py.display.set_caption("Ace Ventura - The Game")
-        self.screen = py.display.set_mode((self.FrameWidth, self.FrameHeight))
+        self.screen = py.display.set_mode((self.FrameWidth, self.FrameHeight), py.FULLSCREEN)
         self.bg = py.image.load(BG_IMAGE_PATH).convert()
         self.perso = Perso(PLAYER_IMAGES, 100, 100)
         self.all_sprites_group = py.sprite.Group()
