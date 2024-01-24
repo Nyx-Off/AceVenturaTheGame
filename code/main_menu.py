@@ -159,7 +159,7 @@ class MainMenu:
     
     def Samy(self):
         # Action for "Samy" button
-        print("Le crack - Dev Partie Menu/fin + integrateurs code (rassemblement des codes) (╯°□°）╯︵ ┻━┻")
+        print("Le crack (chef d'équipe) - Dev Partie Menu/fin + integrateurs code (rassemblement des codes) (╯°□°）╯︵ ┻━┻")
         
     def Marine(self):
         # Action for "Marine" button
@@ -175,7 +175,7 @@ class MainMenu:
         
     def Thommy(self):
         # Action for "Thommy" button
-        print("Le gourmant - secrétaire xD ( ma faute /samy/ car je ne savais pas quoi lui donner comme rôle) (￣﹏￣；)")        
+        print("Le gourmant - secrétaire xD [il a fait le power point, redactions cahier des charges etc ..., il bien fait ...  ] ( ma faute /samy/ car je ne savais pas quoi lui donner comme rôle) (￣﹏￣；)")        
 
     def increase_volume(self):
         if self.volume_level < 10:

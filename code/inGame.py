@@ -8,16 +8,27 @@ from Perso import Perso
 from Rock import Rock
 from Coin import Coin
 
-# Définition des constantes
+# Constantes
 SPEED_INCREASE_EVENT = py.USEREVENT + 1
-SPEED_INCREASE_INTERVAL = 10000
+SPEED_INCREASE_INTERVAL = 7000  # millisecondes (7 secondes)
+FONT_PATH = 'font/Crang.ttf'
+BG_IMAGE_PATH = "asset/Background/Fond_Final.png"
+PLAYER_IMAGES = ["asset/Player/AceVenturaCharacter1.png", "asset/Player/AceVenturaCharacter2.png", "asset/Player/AceVenturaCharacter3.png"]
+ROCK_IMAGES = [f"asset/Obstacles/Obstacles{i}.PNG" for i in range(1, 5)]
+COIN_IMAGES = [f"asset/Points/{color}Diamond.png" for color in ['Bleu', 'Green', 'Purpel', 'Red']]
+SOUNDS = {
+    "life_lost": "music/hit.mp3",
+    "game_over": "music/Game_Over.mp3",
+    "get_point": "music/Coin01.mp3",
+}
+HEART_IMAGE_PATH = "asset/Others/heart.png"
+BACKGROUND_SCORE_IMAGE_PATH = "asset/Others/BackgroundInGame.png"
 
 class InGame():
     def __init__(self, initial_volume=1.0):
-        # Initialisation des variables
+        # Initialisation
         joystick.init()
-        self.font_path = 'font/Crang.ttf'
-        self.font = py.font.Font(self.font_path, 15)
+        self.font = py.font.Font(FONT_PATH, 15)
         self.speed = 15
         py.time.set_timer(SPEED_INCREASE_EVENT, SPEED_INCREASE_INTERVAL)
         self.setup_game()
@@ -31,9 +42,9 @@ class InGame():
         self.spawn_interval = 5
         self.text_color = (22, 69, 62)
         py.display.set_caption("Ace Ventura - The Game")
-        self.screen = py.display.set_mode((self.FrameWidth, self.FrameHeight)) #, py.FULLSCREEN
-        self.bg = py.image.load("asset/Background/Fond_Final.png").convert()
-        self.perso = Perso(["asset/Player/AceVenturaCharacter1.png", "asset/Player/AceVenturaCharacter2.png","asset/Player/AceVenturaCharacter3.png"], 100, 100)
+        self.screen = py.display.set_mode((self.FrameWidth, self.FrameHeight))
+        self.bg = py.image.load(BG_IMAGE_PATH).convert()
+        self.perso = Perso(PLAYER_IMAGES, 100, 100)
         self.all_sprites_group = py.sprite.Group()
         self.caillou_group = py.sprite.Group()
         self.coin_group = py.sprite.Group()
@@ -44,14 +55,7 @@ class InGame():
         self.last_move_time = py.time.get_ticks()
         self.scroll = 0
         self.tiles = math.ceil(self.FrameWidth / self.bg.get_width()) + 1000
-        self.sound_life_lost = py.mixer.Sound("music\hit.mp3")
-        self.sound_game_over = py.mixer.Sound("music\Game_Over.mp3")
-        self.sound_get_point = py.mixer.Sound("music\Coin01.mp3")  
-        self.sounds = {
-            "life_lost": py.mixer.Sound("music/hit.mp3"),
-            "game_over": py.mixer.Sound("music/Game_Over.mp3"),
-            "get_point": py.mixer.Sound("music/Coin01.mp3"),
-        }
+        self.sounds = {key: py.mixer.Sound(value) for key, value in SOUNDS.items()}
         self.set_sound_volume(initial_volume)
 
     def set_sound_volume(self, volume):
@@ -72,7 +76,7 @@ class InGame():
         self.caillou_group = py.sprite.Group()
         self.coin_group = py.sprite.Group()
         self.ennemy_group = py.sprite.Group()
-        self.perso = Perso(["asset/Player/AceVenturaCharacter1.png", "asset/Player/AceVenturaCharacter2.png","asset/Player/AceVenturaCharacter3.png"], 100, 100)
+        self.perso = Perso(PLAYER_IMAGES, 100, 100)
         self.all_sprites_group.add(self.perso)
         Rock.last_rock_x = 1280
         Coin.last_coin_x = 1280
@@ -93,9 +97,10 @@ class InGame():
         # Quitte le jeu
         self.run = False 
 
-    def generate_random_objects(self, group, class_type, image_path, width, height):
+    def generate_random_objects(self, group, class_type, image_paths, width, height):
         # Génère des objets aléatoires
         if random.randint(1, 100) < 50:
+            image_path = random.choice(image_paths)
             new_object = class_type(image_path, width, height)
             if not spritecollideany(new_object, self.all_sprites_group):
                 group.add(new_object)
@@ -106,8 +111,6 @@ class InGame():
         # Met à jour le jeu
         self.clock.tick(50)
         
-        
-
         i = 0
         while (i < self.tiles):
             self.screen.blit(self.bg, (self.bg.get_width() * i + self.scroll, 0))
@@ -156,25 +159,23 @@ class InGame():
         if self.spawn_timer >= self.spawn_interval:
             choice = random.randint(1, 10)
             if 1 <= choice <= 8:
-                type_rock = random.randint(1, 4)
-                rock_path = f"asset/Obstacles/Obstacles{type_rock}.PNG"
-                self.generate_random_objects(self.caillou_group, Rock, rock_path, 50, 50)
+                rock_path = random.choice(ROCK_IMAGES)
+                self.generate_random_objects(self.caillou_group, Rock, [rock_path], 50, 50)
             elif choice == 9:
-                bonus = random.randint(1, 4)
-                path = f"asset/Points/{['Bleu', 'Green', 'Purpel', 'Red'][bonus-1]}Diamond.png"
-                self.generate_random_objects(self.coin_group, Coin, path, 50, 50)
+                coin_path = random.choice(COIN_IMAGES)
+                self.generate_random_objects(self.coin_group, Coin, [coin_path], 50, 50)
 
             self.spawn_timer = 0
 
         for caillou in self.caillou_group:
             if self.perso.rect.colliderect(caillou.rect):
-                print("Collision!")
+                print("Collision !")
                 self.perso.lives -= 1
-                self.sound_life_lost.play()
+                self.sounds["life_lost"].play()
 
                 if self.perso.lives <= 0:
-                    print("Game Over! You ran out of lives.")
-                    self.sound_game_over.play()
+                    print("Game Over ! Vous n'avez plus de vies.")
+                    self.sounds["game_over"].play()
                     self.perso.game_over = True
                     self.ennemy_group.empty()
                 else:
@@ -195,28 +196,28 @@ class InGame():
             self.run = False
             return
 
-        BackgroundScore = py.image.load("asset\Others\BackgroundInGame.png")
-        BackgroundScoreReSize = py.transform.scale(BackgroundScore, (200, 200))
+        background_score = py.image.load(BACKGROUND_SCORE_IMAGE_PATH)
+        background_score_resized = py.transform.scale(background_score, (200, 200))
               
         x = 1050
         y = -25
         
-        self.screen.blit(BackgroundScoreReSize, (x, y))
+        self.screen.blit(background_score_resized, (x, y))
 
         for coin in self.coin_group:
             if self.perso.rect.colliderect(coin.rect):
                 print("+1 point")
-                self.sound_get_point.play()
+                self.sounds["get_point"].play()
                 self.perso.points += 1
                 coin.rect.x = -1000
 
         if self.perso.lives > 0:
-            heart = py.image.load("asset/Others/heart.png").convert_alpha()
+            heart = py.image.load(HEART_IMAGE_PATH).convert_alpha()
             heart = py.transform.scale(heart, (30, 30))
             for i in range(self.perso.lives):
                 self.screen.blit(heart, (self.FrameWidth - (70 + 30 * i)-41, 70))
 
-            points_text = self.font.render(f"Points: {self.perso.points}", True, self.text_color)
+            points_text = self.font.render(f"Points : {self.perso.points}", True, self.text_color)
             self.screen.blit(points_text, (self.FrameWidth - 165, 100))
 
         self.ennemy_group.draw(self.screen)
