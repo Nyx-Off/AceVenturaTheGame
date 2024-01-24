@@ -11,7 +11,7 @@ class MainMenu:
         self.volume_level = 5  # Niveau de volume initial
         self.is_running = True 
         self.size = size
-        self.screen = pygame.display.set_mode(self.size,pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode(self.size) #pygame.FULLSCREEN
         self.font_path = 'font/Crang.ttf'
         self.background_menu_image_path = 'asset/Background/backGroudMenu.png'
         self.background_image_path = 'asset/Background/backGroundMainMenue.png'
@@ -51,7 +51,7 @@ class MainMenu:
             Button("Paramètres", self.screen.get_height() / 2.5 + MESSAGE_SPACING, self.font_path, self.parametres),
             Button("Quitter", self.screen.get_height() / 2.4 + MESSAGE_SPACING * 2, self.font_path, self.quitter),
             Button("Retour", self.screen.get_height() / 1.9 + MESSAGE_SPACING, self.font_path, self.retour, x_offset=800),
-            Button("Son", self.screen.get_height() / 2 - MESSAGE_SPACING, self.font_path, self.Son, x_offset=800),
+            Button("Son", self.screen.get_height() / 2.1 - MESSAGE_SPACING, self.font_path, self.Son, x_offset=800),
             Button("+", self.screen.get_height() / 2.35 + MESSAGE_SPACING, self.font_path, self.increase_volume, x_offset=880, text_color=(255, 255, 255)),
             Button("-", self.screen.get_height() / 2.35 + MESSAGE_SPACING, self.font_path, self.decrease_volume, x_offset=720, text_color=(255, 255, 255)),
             Button("Crédit", self.screen.get_height() / 1.1 - MESSAGE_SPACING, self.font_path, self.credit, x_offset=-350, text_color=(255, 255, 255)),
@@ -163,7 +163,7 @@ class MainMenu:
         
     def Marine(self):
         # Action for "Marine" button
-        print("La boss - Dev Partie Jeu(ennemis, perso, cailloux, points, vie) (✿◡‿◡)")
+        print("La boss - Dev Moteur du Jeu(ennemis, perso, cailloux, points, vie, logique, etc) (✿◡‿◡)")
         
     def Adrien(self):
         # Action for "Adrien" button

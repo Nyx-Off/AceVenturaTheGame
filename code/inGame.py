@@ -2,6 +2,7 @@ import math
 import random
 import pygame as py
 from pygame.sprite import spritecollideany
+import pygame.joystick as joystick
 
 from Perso import Perso
 from Rock import Rock
@@ -14,7 +15,10 @@ SPEED_INCREASE_INTERVAL = 10000
 class InGame():
     def __init__(self, initial_volume=1.0):
         # Initialisation des variables
-        self.speed = 18
+        joystick.init()
+        self.font_path = 'font/Crang.ttf'
+        self.font = py.font.Font(self.font_path, 15)
+        self.speed = 15
         py.time.set_timer(SPEED_INCREASE_EVENT, SPEED_INCREASE_INTERVAL)
         self.setup_game()
         self.clock = py.time.Clock()
@@ -25,10 +29,9 @@ class InGame():
         self.player_pos = 2
         self.spawn_timer = 0
         self.spawn_interval = 5
-        self.font = py.font.SysFont(None, 36)
-        self.text_color = (255, 255, 255)
-        py.display.set_caption("AceVentura")
-        self.screen = py.display.set_mode((self.FrameWidth, self.FrameHeight),py.FULLSCREEN) 
+        self.text_color = (22, 69, 62)
+        py.display.set_caption("Ace Ventura - The Game")
+        self.screen = py.display.set_mode((self.FrameWidth, self.FrameHeight)) #, py.FULLSCREEN
         self.bg = py.image.load("asset/Background/Fond_Final.png").convert()
         self.perso = Perso(["asset/Player/AceVenturaCharacter1.png", "asset/Player/AceVenturaCharacter2.png","asset/Player/AceVenturaCharacter3.png"], 100, 100)
         self.all_sprites_group = py.sprite.Group()
@@ -51,7 +54,6 @@ class InGame():
         }
         self.set_sound_volume(initial_volume)
 
-        
     def set_sound_volume(self, volume):
         for sound in self.sounds.values():
             sound.set_volume(volume)
@@ -103,6 +105,8 @@ class InGame():
     def update(self):
         # Met à jour le jeu
         self.clock.tick(50)
+        
+        
 
         i = 0
         while (i < self.tiles):
@@ -122,9 +126,14 @@ class InGame():
 
         keys = py.key.get_pressed()
         current_time = py.time.get_ticks()
-        move_up = keys[py.K_w] or keys[py.K_UP]
-        move_down = keys[py.K_s] or keys[py.K_DOWN]
-
+        joystick_count = joystick.get_count()
+        if joystick_count > 0:
+            gamepad = joystick.Joystick(0)
+            gamepad.init()
+            
+        move_up = keys[py.K_w] or keys[py.K_UP] or (joystick_count > 0 and gamepad.get_axis(1) < -0.5)
+        move_down = keys[py.K_s] or keys[py.K_DOWN] or (joystick_count > 0 and gamepad.get_axis(1) > 0.5)
+        
         if move_up and self.player_pos > 1 and current_time - self.last_move_time > self.pause_duration:
             self.player_pos -= 1
             self.last_move_time = current_time
@@ -186,6 +195,14 @@ class InGame():
             self.run = False
             return
 
+        BackgroundScore = py.image.load("asset\Others\BackgroundInGame.png")
+        BackgroundScoreReSize = py.transform.scale(BackgroundScore, (200, 200))
+              
+        x = 1050
+        y = -25
+        
+        self.screen.blit(BackgroundScoreReSize, (x, y))
+
         for coin in self.coin_group:
             if self.perso.rect.colliderect(coin.rect):
                 print("+1 point")
@@ -197,10 +214,10 @@ class InGame():
             heart = py.image.load("asset/Others/heart.png").convert_alpha()
             heart = py.transform.scale(heart, (30, 30))
             for i in range(self.perso.lives):
-                self.screen.blit(heart, (self.FrameWidth - (70 + 30 * i), 20))
+                self.screen.blit(heart, (self.FrameWidth - (70 + 30 * i)-41, 70))
 
             points_text = self.font.render(f"Points: {self.perso.points}", True, self.text_color)
-            self.screen.blit(points_text, (self.FrameWidth - 150, 50))
+            self.screen.blit(points_text, (self.FrameWidth - 165, 100))
 
         self.ennemy_group.draw(self.screen)
         self.dt = self.clock.tick(50)

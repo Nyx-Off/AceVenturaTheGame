@@ -54,8 +54,6 @@ class Perso(GameObject):
                 else:
                     self.over = True
 
-
-            
         #Animation du perso
         elif current_time - self.last_frame_change >= self.frame_duration:
             self.image = py.image.load(self.image_paths[self.current_frame_index]).convert_alpha()
