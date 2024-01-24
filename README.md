@@ -9,9 +9,9 @@
   </p>
 </p>
 
-![Contributors](https://img.shields.io/github/contributors/Nyx-Off/AceVenturaTheGame?color=dark-green) ![Issues](https://img.shields.io/github/issues/Nyx-Off/AceVenturaTheGame) ![License](https://img.shields.io/github/license/Nyx-Off/AceVenturaTheGame) 
+![Contributors](https://img.shields.io/github/contributors/Nyx-Off/AceVenturaTheGame?color=dark-green) ![License](https://img.shields.io/github/license/Nyx-Off/AceVenturaTheGame) 
 
-## About The Project
+## Apropos 
 
 ![Screen Shot](https://raw.githubusercontent.com/Nyx-Off/AceVenturaTheGame/main/asset/Others/logo500x500.png)
 
@@ -30,7 +30,7 @@ Voilà, une expérience de jeu à ne pas manquer, surtout si vous avez un faible
 ## Getting Started
 
 
-### Prerequisites
+### Prérequis 
 
 Aucune configuration supplémentaire n'est requise en dehors de l'installation standard de Python et Pygame.
 
@@ -52,7 +52,7 @@ git clone https://github.com/Nyx-Off/AceVenturaTheGame.git
 
 lance le main.py
 
-## Usage
+## Utilisation
 
 Bien sûr, voici une version réécrite avec un peu plus de panache :
 
@@ -70,12 +70,10 @@ Et pour ajouter une touche d'exclusivité, les menus ne sont accessibles qu'avec
 
 Distributed under the MIT License. See [LICENSE](https://github.com/Nyx-Off/AceVenturaTheGame/blob/main/LICENSE.md) for more information.
 
-## Authors
+## Les Cracks
 
 * **Samy - Nyx** - *Die inside* - [Samy - Nyx](https://github.com/Nyx-Off) - *Intégrateur code + menu/end-screen*
 * **Marine Forcioli** - ** - [Marine Forcioli](https://github.com/Enimoop) - *Game Engine *
 * **Blazikster** - ** - [Blazikster](https://github.com/Blazikster) - *Graphismes - Son*
 * **Bilel** - ** - [Bilel](https://github.com/bilelamr) - *Graphismes*
 * **Thommy** - ** - [Thommy](https://github.com/Thommy078) - *Secrétaire xD *
-
-
