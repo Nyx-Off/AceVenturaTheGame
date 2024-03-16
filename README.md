@@ -54,8 +54,6 @@ lance le main.py
 
 ## Utilisation
 
-Bien sûr, voici une version réécrite avec un peu plus de panache :
-
 Ah, les merveilles de la technologie moderne ! Dans ce jeu, tu as le luxe incroyable de choisir entre deux outils hautement sophistiqués : le clavier, cette relique du passé, ou la manette, symbole de l'évolution du jeu vidéo.
 
 Si tu es un nostalgique du clavier, voici comment procéder : 
