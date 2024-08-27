@@ -37,7 +37,7 @@ Aucune configuration supplémentaire n'est requise en dehors de l'installation s
 * pygame
 
 ```sh
-pip install pygame
+pip install pygame pygame_gui
 ```
 
 ### Installation
