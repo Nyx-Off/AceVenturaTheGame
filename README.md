@@ -10,6 +10,8 @@
 </p>
 
 ![Static Badge](https://img.shields.io/badge/Contributeur-5-brightgreen?style=flat&logo=clubhouse&logoColor=white&logoSize=auto) ![License](https://img.shields.io/github/license/Nyx-Off/AceVenturaTheGame) 
+![Static Badge](https://img.shields.io/badge/Python-black?style=plastic&logo=python&logoColor=white&logoSize=auto&color=yellow)
+
 
 ## Apropos 
 
