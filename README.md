@@ -9,7 +9,7 @@
   </p>
 </p>
 
-![Contributors](https://img.shields.io/github/contributors/Nyx-Off/AceVenturaTheGame?color=dark-green) ![License](https://img.shields.io/github/license/Nyx-Off/AceVenturaTheGame) 
+![Static Badge](https://img.shields.io/badge/Contributeur-5-brightgreen?style=flat&logo=clubhouse&logoColor=white&logoSize=auto) ![License](https://img.shields.io/github/license/Nyx-Off/AceVenturaTheGame) 
 
 ## Apropos 
 
